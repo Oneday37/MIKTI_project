@@ -1,7 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project_mikti/Screens/add_page.dart';
+import 'package:project_mikti/Screens/logout_alert.dart';
 import 'package:project_mikti/Screens/profile_page.dart';
+import 'package:project_mikti/Screens/switch_account_alert.dart';
+import 'package:project_mikti/Style/fonts.dart';
 
 import 'about_us_page.dart';
 
@@ -44,14 +49,10 @@ class _HomePageState extends State<HomePage> {
                         size: 30,
                       ),
                       radius: 30),
-                  title: Text(
-                    "First Account Name",
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    "+62 8xx xxxx xxxx",
-                    style: TextStyle(color: Colors.black),
-                  ),
+                  title: Text("First Account Name",
+                      style: GoogleFonts.oswald(
+                          fontSize: 18, fontWeight: FontWeight.w500)),
+                  subtitle: Text("+62 8xx xxxx xxxx", style: accountInfo),
                   trailing: Icon(Icons.chevron_right, size: 30),
                   contentPadding: EdgeInsets.only(left: 0),
                   onTap: () {
@@ -121,44 +122,41 @@ class _HomePageState extends State<HomePage> {
               Get.to(DetailInfoPage());
             },
           ),
-          SizedBox(height: 320),
+          SizedBox(height: 300),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               // SWITCH ACCOUNT
-              InkWell(
-                child: Row(
-                  children: [
-                    Icon(Icons.change_circle_outlined),
-                    SizedBox(width: 5),
-                    Text("Switch Account"),
-                  ],
-                ),
-                onTap: () {
-                  print("Button switch account berhasil ditekan");
-                },
-              ),
+              TextButton.icon(
+                  label: Text("Switch account"),
+                  icon: Icon(Icons.cached_rounded),
+                  onPressed: () {
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return switchAccount(context);
+                        });
+                  }),
+
               Text("|"),
 
               // LOGOUT ACCOUNT
-              InkWell(
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.logout_sharp,
-                      color: Colors.red[800],
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Logout",
-                      style: TextStyle(color: Colors.red[800]),
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  print("Button logout berhasil ditekan");
-                },
-              )
+              TextButton.icon(
+                  label:
+                      Text("Logout", style: TextStyle(color: Colors.red[800])),
+                  icon: Icon(
+                    Icons.logout_rounded,
+                    color: Colors.red[800],
+                  ),
+                  onPressed: () {
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return logoutAccount(context);
+                        });
+                  })
             ],
           )
         ],

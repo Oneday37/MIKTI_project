@@ -34,7 +34,7 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             Text(
               "First Account Name",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
