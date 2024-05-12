@@ -5,37 +5,82 @@ class AddPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Add Items"),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Text("Ini adalah halaman menambah item"),
-            SizedBox(height: 20),
-            Text("Dibawah ini adalah penggunaan Elevated Button"),
-            ElevatedButton(child: Text("Tambahkan Item"), onPressed: () {}),
-            SizedBox(height: 20),
-            Text("Dibawah ini adalah penggunaan Text Button"),
-            TextButton(
-              child: Text("Ini adalah text button"),
-              onPressed: () {},
+    return SafeArea(
+        child: DefaultTabController(
+      length: 2,
+      child: Scaffold(
+          appBar: AppBar(
+            title: Row(
+              children: [
+                const Text("Gallery"),
+                GestureDetector(
+                  child: const Icon(Icons.keyboard_arrow_down),
+                  onTap: () {},
+                )
+              ],
             ),
-            SizedBox(height: 20),
-            Text("Dibawah ini adalah penggunaan Outline Button"),
-            OutlinedButton(
-                child: Text("Ini adalah outline button"), onPressed: () {}),
-            SizedBox(height: 20),
-            Text("Dibawah ini adalah penggunaan Icon Button"),
-            IconButton(
-              icon: Icon(Icons.play_arrow),
-              onPressed: () {},
-            )
-          ],
+            bottom: const PreferredSize(
+                preferredSize: Size.fromHeight(20),
+                child: TabBar(tabs: [Text("Photos"), Text("Videos")])),
+          ),
+          body: LayoutBuilder(
+            builder: (BuildContext content, screenSize) {
+              if (screenSize.maxWidth < 700) {
+                return GridView.count(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  children: _content(),
+                );
+              } else if (screenSize.maxWidth <= 1000) {
+                return GridView.count(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  children: _content(),
+                );
+              } else if (screenSize.maxWidth > 1000) {
+                return GridView.count(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                  crossAxisCount: 4,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  children: _content(),
+                );
+              } else {
+                return GridView.count(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                  crossAxisCount: 5,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  children: _content(),
+                );
+              }
+            },
+          )),
+    ));
+  }
+
+  List<Widget> _content() {
+    return List<Widget>.generate(50, (index) {
+      return TabBarView(children: [
+        Container(
+          color: Colors.grey[600],
+          height: 300,
+          child: const Icon(Icons.camera_alt_outlined),
         ),
-      ),
-    );
+        Container(
+          color: Colors.grey[600],
+          height: 100,
+          child: const Icon(Icons.play_circle_outlined),
+        )
+      ]);
+    });
   }
 }

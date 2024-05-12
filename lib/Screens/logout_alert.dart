@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 
 Widget logoutAccount(BuildContext context) {
   return CupertinoAlertDialog(
-    title: Text("Logout Akun"),
-    content: Text("Apakah anda yakin ingin keluar dari akun ini?"),
+    title: const Text("Logout Akun"),
+    content: const Text("Apakah anda yakin ingin keluar dari akun ini?"),
     actions: [
       CupertinoDialogAction(
-        child: Text("Tidak"),
+        child: const Text("Tidak"),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
       CupertinoDialogAction(
-        child: Text("Ya"),
+        child: const Text("Ya"),
         onPressed: () {
           showDialog(
               barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
                 return CupertinoAlertDialog(
-                  title: Column(
+                  title: const Column(
                     children: [
                       Icon(
                         Icons.warning_amber_rounded,
@@ -30,16 +30,16 @@ Widget logoutAccount(BuildContext context) {
                       Text("Peringatan"),
                     ],
                   ),
-                  content: Text("Anda akan keluar dari akun ini"),
+                  content: const Text("Anda akan keluar dari akun ini"),
                   actions: [
                     CupertinoDialogAction(
-                      child: Text("Batal"),
+                      child: const Text("Batal"),
                       onPressed: () {
                         Navigator.pop(context);
                       },
                     ),
                     CupertinoDialogAction(
-                      child: Text(
+                      child: const Text(
                         "Logout",
                         style: TextStyle(color: Colors.red),
                       ),

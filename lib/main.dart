@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'Screens/home_page.dart';
 
 void main() {
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Project MIKTI',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: Colors.lightBlue, useMaterial3: true),
+      theme: ThemeData(useMaterial3: true),
       home: HomePage(),
     );
   }

@@ -1,17 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_mikti/Screens/add_page.dart';
+import 'package:project_mikti/Screens/detail_chat_page.dart';
+import 'package:project_mikti/Screens/detail_profil_page.dart';
 import 'package:project_mikti/Screens/logout_alert.dart';
 import 'package:project_mikti/Screens/profile_page.dart';
 import 'package:project_mikti/Screens/switch_account_alert.dart';
-import 'package:project_mikti/Style/fonts.dart';
-
 import 'about_us_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -21,10 +20,27 @@ class _HomePageState extends State<HomePage> {
   bool buttonTheme = true;
   int bottombarindex = 0;
 
-  List<Widget> bottomnavbar = [
-    Text("Ini adalah Halaman Home"),
-    Text("Ini adalah Halaman Status"),
-    Text("Ini adalah Halaman Telepon"),
+  List<Widget> bottomnavbar = <Widget>[
+    ListView.custom(
+        childrenDelegate:
+            SliverChildBuilderDelegate(childCount: 20, (context, index) {
+      return ListTile(
+        leading: const Icon(Icons.person),
+        title: Text(
+          "Person ${index + 1}",
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+        ),
+        subtitle: Text(
+          "Isi Chat",
+          style: GoogleFonts.poppins(fontSize: 13),
+        ),
+        onTap: () {
+          Get.to(DetailChatPage());
+        },
+      );
+    })),
+    const Text("Ini adalah Halaman Status"),
+    const Text("Ini adalah Halaman Telepon"),
   ];
 
   @override
@@ -36,33 +52,32 @@ class _HomePageState extends State<HomePage> {
             .zero, //Digunaskan untuk memberikan warna penuh kepada header
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(color: Colors.lightBlue),
+            decoration: const BoxDecoration(color: Colors.lightBlue),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ListTile(
-                  leading: CircleAvatar(
-                      backgroundColor: Colors.grey[700],
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                      radius: 30),
-                  title: Text("First Account Name",
+                  leading: const Hero(
+                    tag: "edit_profile_animation",
+                    child: CircleAvatar(
+                        backgroundImage: AssetImage("assets/gambar_1.jpg"),
+                        radius: 30),
+                  ),
+                  title: Text("Muhammad Zaidan",
                       style: GoogleFonts.oswald(
                           fontSize: 18, fontWeight: FontWeight.w500)),
-                  subtitle: Text("+62 8xx xxxx xxxx", style: accountInfo),
-                  trailing: Icon(Icons.chevron_right, size: 30),
-                  contentPadding: EdgeInsets.only(left: 0),
+                  subtitle: Text("+62 8xx xxxx xxxx",
+                      style: GoogleFonts.oswald(fontSize: 16)),
+                  trailing: const Icon(Icons.chevron_right, size: 30),
+                  contentPadding: const EdgeInsets.only(left: 0),
                   onTap: () {
-                    Get.to(ProfilePage());
+                    Get.to(const ProfilePage());
                   },
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.nightlight_round_outlined,
                       size: 30,
                       color: Colors.black,
@@ -76,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                             buttonTheme = value;
                           });
                         }),
-                    Icon(
+                    const Icon(
                       Icons.wb_sunny,
                       size: 30,
                       color: Colors.yellow,
@@ -89,17 +104,17 @@ class _HomePageState extends State<HomePage> {
 
           //ACCOUNT
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text("Account"),
+            leading: const Icon(Icons.person),
+            title: const Text("Account"),
             onTap: () {
-              Get.to(ProfilePage());
+              Get.to(const ProfilePage());
             },
           ),
 
           //NOTIFICATIONS
           ListTile(
-            leading: Icon(Icons.notifications_none),
-            title: Text("Notifications"),
+            leading: const Icon(Icons.notifications_none),
+            title: const Text("Notifications"),
             onTap: () {
               print("Widget notif berhasil ditekan");
             },
@@ -107,8 +122,8 @@ class _HomePageState extends State<HomePage> {
 
           //SETTING
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text("Setting"),
+            leading: const Icon(Icons.settings),
+            title: const Text("Setting"),
             onTap: () {
               print("Widget setting berhasil ditekan");
             },
@@ -116,20 +131,20 @@ class _HomePageState extends State<HomePage> {
 
           //ABOUT US
           ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text("About Us"),
+            leading: const Icon(Icons.info_outline),
+            title: const Text("About Us"),
             onTap: () {
-              Get.to(DetailInfoPage());
+              Get.to(const DetailInfoPage());
             },
           ),
-          SizedBox(height: 300),
+          const SizedBox(height: 300),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               // SWITCH ACCOUNT
               TextButton.icon(
-                  label: Text("Switch account"),
-                  icon: Icon(Icons.cached_rounded),
+                  label: const Text("Switch account"),
+                  icon: const Icon(Icons.cached_rounded),
                   onPressed: () {
                     showDialog(
                         barrierDismissible: false,
@@ -139,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                         });
                   }),
 
-              Text("|"),
+              const Text("|"),
 
               // LOGOUT ACCOUNT
               TextButton.icon(
@@ -170,13 +185,14 @@ class _HomePageState extends State<HomePage> {
 
       //BODY / HALAMAN APLIKASI
       body: Center(child: bottomnavbar[bottombarindex]),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.lightBlue,
-          child: const Icon(Icons.add),
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddPage()));
-          }),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.lightBlue[200],
+        icon: const Icon(Icons.add),
+        label: const Text("Add File"),
+        onPressed: () {
+          Get.to(const AddPage());
+        },
+      ),
 
       // NAVIGATION BAR BAWAH
       bottomNavigationBar: BottomNavigationBar(

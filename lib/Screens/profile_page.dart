@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:project_mikti/Screens/detail_profil_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -6,16 +9,24 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Your Profile"), centerTitle: true),
+      appBar: AppBar(title: const Text("Your Profile"), centerTitle: true),
       body: Center(
         child: Column(
           children: [
             Center(
               child: Stack(
                 children: [
-                  CircleAvatar(
-                    child: Icon(Icons.person, size: 45),
-                    radius: 50,
+                  GestureDetector(
+                    child: const Hero(
+                      tag: "edit_profile_animation",
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage("assets/gambar_1.jpg"),
+                        radius: 50,
+                      ),
+                    ),
+                    onTap: () {
+                      Get.to(const DetailProfilePage());
+                    },
                   ),
                   Positioned(
                       right: 0,
@@ -26,7 +37,7 @@ class ProfilePage extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Colors.black,
                               borderRadius: BorderRadius.circular(15)),
-                          child: Icon(
+                          child: const Icon(
                             Icons.edit,
                             color: Colors.white,
                             size: 15,
@@ -34,12 +45,13 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Text(
-              "First Account Name",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              "Muhammad Zaidan",
+              style: GoogleFonts.oswald(
+                  fontSize: 30, fontWeight: FontWeight.normal),
             ),
-            Divider()
+            const Divider()
           ],
         ),
       ),
