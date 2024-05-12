@@ -14,7 +14,7 @@ Pada first commit project, terdapat beberapa code sederhana yang digunakan untuk
 # 2. Second commit
 Pada second commit ini, terdapat beberapa penambahan sedikit terhadap code program yang telah dibuat sebelumnya. Second commit ini berisikan beberapa implementasi berdasarkan materi pembelajaran yang telah diberikan. Adapun beberapa penambahan yang dilakukan pada second commit ini, sebagai berikut:
 - Mengganti code "Switch account" dan "Logout" yang terletak pada bagian bawah drawer menjadi widget TextButton.icon()
-- Menambahkan 2 alert dialog yang berbeda dengan menggunakan widget CupertinoDialogAction() pada bagian switch account dan logout yang dapat diakses melalui icon hamburger menu ![image](https://github.com/Oneday37/MIKTI_project/assets/153218197/688a1fb0-2121-4e6a-a97c-23ab3d50f1d4)
+- Menambahkan 2 alert dialog yang berbeda dengan menggunakan widget CupertinoDialogAction() pada bagian switch account dan logout yang dapat diakses melalui icon hamburger menu
 
 - Menambahkan beberapa navigasi terhadap beberapa widget, sehingga ketika widget tersebut diklik maka akan terjadi suatu state yang terjadi baik itu berpindah halaman maupun mencetak output sesuai perintah. Sistem navigasi ini ditambahkan kedalam beberpa bagian, seperti pada bagian switch account, logout, serta tombol tombol yang ada pada alert dialog
 - Menambahkan depedencies google_font untuk memperindah beberapa tampilan dari teks yang ada pada aplikasi
