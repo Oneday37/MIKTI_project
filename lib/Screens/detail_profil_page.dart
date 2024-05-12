@@ -24,7 +24,7 @@ class DetailProfilePage extends StatelessWidget {
       ),
       body: Center(
           child: Hero(
-              tag: "profile_animation",
+              tag: "edit_profile_animation",
               child: Image.asset("assets/gambar_1.jpg"))),
     );
   }

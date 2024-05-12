@@ -178,6 +178,12 @@ class _HomePageState extends State<HomePage> {
       )),
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
+        titleSpacing: 0,
+        title: Text(
+          "Chattingan Kuy",
+          style: GoogleFonts.oswald(fontSize: 25),
+        ),
+        centerTitle: true,
         actions: [
           IconButton(icon: const Icon(Icons.search), onPressed: () {}),
         ],
