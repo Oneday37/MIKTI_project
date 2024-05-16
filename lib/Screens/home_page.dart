@@ -1,11 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_mikti/Screens/add_page.dart';
 import 'package:project_mikti/Screens/detail_chat_page.dart';
-import 'package:project_mikti/Screens/detail_profil_page.dart';
 import 'package:project_mikti/Screens/logout_alert.dart';
 import 'package:project_mikti/Screens/profile_page.dart';
+import 'package:project_mikti/Screens/status_page.dart';
 import 'package:project_mikti/Screens/switch_account_alert.dart';
 import 'about_us_page.dart';
 
@@ -24,28 +26,31 @@ class _HomePageState extends State<HomePage> {
     ListView.custom(
         childrenDelegate:
             SliverChildBuilderDelegate(childCount: 20, (context, index) {
-      return ListTile(
-        leading: const Icon(Icons.person),
-        title: Text(
-          "Person ${index + 1}",
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+      return Card(
+        child: ListTile(
+          leading: const Icon(Icons.person),
+          title: Text(
+            "Person ${index + 1}",
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+          ),
+          subtitle: Text(
+            "Isi Chat",
+            style: GoogleFonts.poppins(fontSize: 13),
+          ),
+          onTap: () {
+            Get.to(DetailChatPage());
+          },
         ),
-        subtitle: Text(
-          "Isi Chat",
-          style: GoogleFonts.poppins(fontSize: 13),
-        ),
-        onTap: () {
-          Get.to(DetailChatPage());
-        },
       );
     })),
-    const Text("Ini adalah Halaman Status"),
+    StatusPage(),
     const Text("Ini adalah Halaman Telepon"),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //DRAWER / HAMBURGER MENU ICON
       drawer: Drawer(
           child: ListView(
         padding: EdgeInsets
@@ -176,6 +181,8 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       )),
+
+      //APP BAR / NAVIGATION BAR ATAS
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
         titleSpacing: 0,
