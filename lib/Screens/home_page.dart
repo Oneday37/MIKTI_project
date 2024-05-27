@@ -1,14 +1,13 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_mikti/Screens/add_page.dart';
+import 'package:project_mikti/Screens/call_page.dart';
 import 'package:project_mikti/Screens/detail_chat_page.dart';
-import 'package:project_mikti/Screens/logout_alert.dart';
+import 'package:project_mikti/Components/logout_alert.dart';
 import 'package:project_mikti/Screens/profile_page.dart';
 import 'package:project_mikti/Screens/status_page.dart';
-import 'package:project_mikti/Screens/switch_account_alert.dart';
+import 'package:project_mikti/Components/switch_account_alert.dart';
 import 'about_us_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,13 +37,13 @@ class _HomePageState extends State<HomePage> {
             style: GoogleFonts.poppins(fontSize: 13),
           ),
           onTap: () {
-            Get.to(DetailChatPage());
+            Get.to(const DetailChatPage());
           },
         ),
       );
     })),
-    StatusPage(),
-    const Text("Ini adalah Halaman Telepon"),
+    const StatusPage(),
+    const CallPage()
   ];
 
   @override
@@ -192,7 +191,16 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+          IconButton(
+            icon: const Icon(
+              Icons.camera_alt_outlined,
+              color: Colors.black,
+            ),
+            onPressed: () {},
+          ),
+          IconButton(
+              icon: const Icon(Icons.search, color: Colors.black),
+              onPressed: () {}),
         ],
       ),
 

@@ -31,11 +31,15 @@ class DetailChatPage extends StatelessWidget {
         ],
       ),
       body: const Center(child: Text("ISI CHAT")),
-      bottomSheet: Container(
+      bottomSheet: Padding(
+        padding: const EdgeInsets.all(7),
         child: Row(
           children: [
             const Icon(Icons.emoji_emotions_outlined),
-            const Icon(Icons.attachment_outlined),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 7),
+              child: Icon(Icons.attachment_outlined),
+            ),
             Expanded(
                 child: TextFormField(
               decoration: InputDecoration(
@@ -44,12 +48,11 @@ class DetailChatPage extends StatelessWidget {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20))),
             )),
-            ElevatedButton(
-              child: const Icon(Icons.mic),
-              onPressed: () {
-                print("Anda menekan microphone");
-              },
-            )
+            IconButton(
+                icon: Icon(Icons.mic),
+                onPressed: () {
+                  print("Anda menekan microphone");
+                })
           ],
         ),
       ),

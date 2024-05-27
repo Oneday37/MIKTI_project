@@ -1,5 +1,19 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+double randomBorderRadius() {
+  return Random().nextDouble() * 70;
+}
+
+double randomMargin() {
+  return Random().nextDouble() * 20;
+}
+
+Color randomColors() {
+  return Color.fromARGB(Random().nextInt(255), Random().nextInt(255),
+      Random().nextInt(255), Random().nextInt(255));
+}
 
 class DetailInfoPage extends StatefulWidget {
   const DetailInfoPage({super.key});
@@ -9,13 +23,43 @@ class DetailInfoPage extends StatefulWidget {
 }
 
 class _DetailInfoPageState extends State<DetailInfoPage> {
-  final double boxSize = 150;
+  late double borderRadius;
+  late double margin;
+  late Color colorRandom;
+
+  final double boxSize = 150; //Mendefiniskan nilai dari box yang akan digunakan
+  double posX = 0.0; //Mendefinisikan titik awal kotak secara horizontal
+  double posY = 0.0; //Mendefinisikan titik awal kotak secara vertical
+
   int numOfSingleTap = 0;
   int numOfDoubleTap = 0;
   int numOfLongPress = 0;
-  double posX = 0.0;
-  double posY = 0.0;
-  late double borderRadius;
+
+  @override
+  void initState() {
+    borderRadius = randomBorderRadius();
+    margin = randomMargin();
+    colorRandom = randomColors();
+    super.initState();
+  }
+
+  void changeState() {
+    setState(() {
+      borderRadius = randomBorderRadius();
+      margin = randomMargin();
+      colorRandom = randomColors();
+    });
+  }
+
+  void centerPositioned(BuildContext context) {
+    posX = (MediaQuery.of(context).size.width - boxSize) / 2;
+    posY = (MediaQuery.of(context).size.height - boxSize) / 3;
+
+    setState(() {
+      posX = posX;
+      posY = posY;
+    });
+  }
 
   void incrementSingleTap() {
     setState(() {
@@ -52,13 +96,21 @@ class _DetailInfoPageState extends State<DetailInfoPage> {
             top: posY,
             left: posX,
             child: GestureDetector(
-              child: Container(
-                color: Colors.red,
-                height: boxSize,
+              child: SizedBox(
                 width: boxSize,
+                height: boxSize,
+                child: AnimatedContainer(
+                  duration: const Duration(seconds: 3),
+                  margin: EdgeInsets.all(margin),
+                  decoration: BoxDecoration(
+                      color: colorRandom,
+                      borderRadius: BorderRadius.circular(borderRadius),
+                      border: Border.all(color: Colors.black, width: 3)),
+                ),
               ),
               onTap: () {
                 incrementSingleTap();
+                changeState();
                 print("Single Tap");
               },
               onDoubleTap: () {
@@ -104,15 +156,5 @@ class _DetailInfoPageState extends State<DetailInfoPage> {
         ),
       ),
     );
-  }
-
-  void centerPositioned(BuildContext context) {
-    posX = (MediaQuery.of(context).size.width - boxSize) / 2;
-    posY = (MediaQuery.of(context).size.height - boxSize) / 3;
-
-    setState(() {
-      this.posX = posX;
-      this.posY = posY;
-    });
   }
 }

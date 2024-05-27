@@ -1,18 +1,7 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
-
-double randomBorderRadius() {
-  return Random().nextDouble() * 70;
-}
-
-double randomMargin() {
-  return Random().nextDouble() * 20;
-}
-
-Color randomColors() {
-  return Color.fromARGB(Random().nextInt(255), Random().nextInt(255),
-      Random().nextInt(255), Random().nextInt(255));
-}
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:project_mikti/Screens/add_page.dart';
 
 class StatusPage extends StatefulWidget {
   const StatusPage({super.key});
@@ -22,92 +11,66 @@ class StatusPage extends StatefulWidget {
 }
 
 class _StatusPageState extends State<StatusPage> {
-  late double borderRadius;
-  late double margin;
-  late Color colorRandom;
-  final double boxSize = 150; //Mendefiniskan nilai dari box yang akan digunakan
-  double posX = 0.0; //Mendefinisikan titik awal kotak secara horizontal
-  double posY = 0.0; //Mendefinisikan titik awal kotak secara vertical
-
-  @override
-  void initState() {
-    borderRadius = randomBorderRadius();
-    margin = randomMargin();
-    colorRandom = randomColors();
-    super.initState();
-  }
-
-  void changeState() {
-    setState(() {
-      borderRadius = randomBorderRadius();
-      margin = randomMargin();
-      colorRandom = randomColors();
-    });
-  }
-
-  void centerPositioned(BuildContext context) {
-    posX = (MediaQuery.of(context).size.width - boxSize) / 2;
-    posY = (MediaQuery.of(context).size.height - boxSize) / 3;
-
-    setState(() {
-      //Menyimpan setiap perubahan pada titik koordinat secara langsung
-      this.posX = posX;
-      this.posY = posY;
-    });
-  }
+  bool isHover = false;
 
   @override
   Widget build(BuildContext context) {
-    if (posX == 0.0) {
-      centerPositioned(context);
-    }
     return Scaffold(
-      body: Stack(
+        body: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      child: ListView(
         children: [
-          Positioned(
-            top: posY,
-            left: posX,
-            child: GestureDetector(
-              child: SizedBox(
-                width: boxSize,
-                height: boxSize,
-                child: AnimatedContainer(
-                  duration: const Duration(seconds: 3),
-                  margin: EdgeInsets.all(margin),
-                  decoration: BoxDecoration(
-                      color: colorRandom,
-                      borderRadius: BorderRadius.circular(borderRadius),
-                      border: Border.all(color: Colors.black, width: 3)),
-                ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Status",
+                style: GoogleFonts.openSans(fontSize: 20),
               ),
-              onTap: () {
-                changeState();
-              },
-              // Dapat membuat widget bergerak / drag secara vertical
-              onVerticalDragUpdate: (details) {
-                setState(() {
-                  posY += details.delta.dy;
-                });
-              },
-              // Dapat membuat widget bergerak / drag secara horizontal
-              onHorizontalDragUpdate: (details) {
-                setState(() {
-                  posX += details.delta.dx;
-                });
-              },
-              // Dapat membuat widget bergerak / drag kesegala arah
-              // onPanUpdate: (details) {
-              //   setState(() {
-              //     posY += details.delta.dy;
-              //     print(posY);
-              //     posX += details.delta.dx;
-              //     print(posX);
-              //   });
-              // },
-            ),
+              IconButton(
+                  icon: const Icon(Icons.share),
+                  onPressed: () {
+                    print("Anda menekan tombol share");
+                  })
+            ],
+          ),
+          Row(
+            children: [
+              GestureDetector(
+                child: Stack(
+                  children: [
+                    const CircleAvatar(
+                      backgroundImage: AssetImage("assets/gambar_1.jpg"),
+                      radius: 35,
+                    ),
+                    Positioned(
+                      right: 0,
+                      bottom: 2,
+                      child: Container(
+                        height: 25,
+                        width: 25,
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: const Icon(Icons.add),
+                      ),
+                    )
+                  ],
+                ),
+                onTap: () {
+                  Get.to(const AddPage());
+                },
+              ),
+              const Expanded(
+                child: ListTile(
+                  title: Text("My status"),
+                  subtitle: Text("Tap to add new status"),
+                ),
+              )
+            ],
           ),
         ],
       ),
-    );
+    ));
   }
 }

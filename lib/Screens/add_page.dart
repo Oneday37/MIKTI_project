@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddPage extends StatelessWidget {
   const AddPage({super.key});
@@ -68,16 +69,16 @@ class AddPage extends StatelessWidget {
   }
 
   List<Widget> _content() {
-    return List<Widget>.generate(50, (index) {
+    return List<Widget>.generate(10, (index) {
       return TabBarView(children: [
         Container(
           color: Colors.grey[600],
-          height: 300,
-          child: const Icon(Icons.camera_alt_outlined),
+          height: 50,
+          child: const Icon(Icons.photo_size_select_actual_rounded),
         ),
         Container(
           color: Colors.grey[600],
-          height: 100,
+          height: 50,
           child: const Icon(Icons.play_circle_outlined),
         )
       ]);
